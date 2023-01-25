@@ -7,7 +7,8 @@ class Onebox::Engine::TiktokOnebox
   alias_method :default_onebox_to_html, :to_html
 
   def to_html
-    if SiteSetting.lazy_tiktok_enabled && oembed_data.embed_product_id
+    if SiteSetting.lazy_videos_enabled && SiteSetting.lazy_tiktok_enabled &&
+         oembed_data.embed_product_id
       thumbnail_url = oembed_data.thumbnail_url
       escaped_title = ERB::Util.html_escape(oembed_data.title)
 
