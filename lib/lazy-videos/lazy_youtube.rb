@@ -7,7 +7,8 @@ class Onebox::Engine::YoutubeOnebox
   alias_method :default_onebox_to_html, :to_html
 
   def to_html
-    if SiteSetting.lazy_youtube_enabled && video_id && !params["list"]
+    if SiteSetting.lazy_videos_enabled && SiteSetting.lazy_youtube_enabled && video_id &&
+         !params["list"]
       result = parse_embed_response
       result ||= get_opengraph.data
 
