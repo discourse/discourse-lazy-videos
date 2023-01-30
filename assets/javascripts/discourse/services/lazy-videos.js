@@ -7,23 +7,31 @@ export default class LazyVideosService extends Service {
   decorateLazyContainers(cooked, api) {
     const lazyContainers = cooked.querySelectorAll(".lazy-video-container");
 
-    if (lazyContainers.length) {
-      for (let container of lazyContainers) {
-        const providerName = container.dataset.providerName;
-        if (this.siteSettings[`lazy_${providerName}_enabled`]) {
-          buildLazyVideo(container, {
-            loadEmbed() {
-              buildIFrame(container);
-              if (api) {
-                const postId = cooked.closest("article").dataset.postId;
-                if (postId) {
-                  api.preventCloak(parseInt(postId, 10));
-                }
-              }
-            },
-          });
-        }
+    if (lazyContainers.length === 0) {
+      return;
+    }
+
+    for (const container of lazyContainers) {
+      const providerName = container.dataset.providerName;
+
+      if (!this.siteSettings[`lazy_${providerName}_enabled`]) {
+        continue;
       }
+
+      buildLazyVideo(container, {
+        loadEmbed() {
+          buildIFrame(container);
+
+          if (!api) {
+            return;
+          }
+
+          const postId = cooked.closest("article").dataset.postId;
+          if (postId) {
+            api.preventCloak(parseInt(postId, 10));
+          }
+        },
+      });
     }
   }
 }
