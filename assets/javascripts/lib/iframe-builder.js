@@ -1,6 +1,6 @@
 import escape from "discourse-common/lib/escape";
 
-export default function buildIFrame(container, params) {
+export default function buildIFrame(container) {
   const videoId = escape(container.dataset.videoId);
   const providerName = container.dataset.providerName;
   const iframe = document.createElement("iframe");
@@ -16,7 +16,7 @@ export default function buildIFrame(container, params) {
     case "youtube":
       iframe.setAttribute(
         "src",
-        `https://www.youtube.com/embed/${videoId}?autoplay=1&${params}`
+        `https://www.youtube.com/embed/${videoId}?autoplay=1`
       );
       break;
     case "vimeo":
