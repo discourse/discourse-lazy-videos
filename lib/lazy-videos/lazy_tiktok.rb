@@ -11,16 +11,21 @@ class Onebox::Engine::TiktokOnebox
          oembed_data.embed_product_id
       thumbnail_url = oembed_data.thumbnail_url
       escaped_title = ERB::Util.html_escape(oembed_data.title)
+      video_height = oembed_data.thumbnail_height < 1024 ? 998 : oembed_data.thumbnail_height
+      height = (323.0 / 576) * video_height
 
       <<~HTML
         <div class="tiktok-onebox lazy-video-container"
           data-video-id="#{oembed_data.embed_product_id}"
           data-video-title="#{escaped_title}"
-          data-provider-name="tiktok">
+          data-provider-name="tiktok"
+          data-height=#{height}
+          style="height: #{height + 7}px">
           <a href="#{url}" target="_blank">
             <img class="tiktok-thumbnail"
               src="#{thumbnail_url}"
-              title="#{escaped_title}">
+              title="#{escaped_title}"
+              style="height: #{height + 7}px">
           </a>
         </div>
       HTML
