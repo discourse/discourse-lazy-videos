@@ -26,6 +26,8 @@ export default function buildIFrame(container) {
       );
       break;
     case "tiktok":
+      const height = container.dataset.height;
+      iframe.setAttribute("style", `height: ${height}px`);
       iframe.setAttribute("scrolling", "no");
       iframe.setAttribute(
         "sandbox",
