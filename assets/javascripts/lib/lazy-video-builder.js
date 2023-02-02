@@ -1,7 +1,5 @@
-import escape from "discourse-common/lib/escape";
-
 export default function buildLazyVideo(container, callback) {
-  const titleText = escape(container.dataset.videoTitle);
+  const titleText = container.dataset.videoTitle;
   const providerName = container.dataset.providerName;
 
   const thumbnailImg = container.querySelector("img");
