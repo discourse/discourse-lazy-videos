@@ -12,6 +12,6 @@ plugins:
     client: true
     hidden: false
   lazy_tiktok_enabled:
-    default: true
+    default: false
     client: true
     hidden: false

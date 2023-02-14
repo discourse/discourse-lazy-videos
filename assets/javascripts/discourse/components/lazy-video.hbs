@@ -1,0 +1,39 @@
+<div
+  class="{{concat @videoAttributes.providerName '-onebox lazy-video-container'}}
+    {{if this.isLoaded 'video-loaded'}}"
+  data-video-id={{@videoAttributes.id}}
+  data-video-title={{@videoAttributes.title}}
+  data-provider-name={{@videoAttributes.providerName}}
+>
+  {{#if this.isLoaded}}
+    <LazyIframe
+      @providerName={{@videoAttributes.providerName}}
+      @videoId={{@videoAttributes.id}}
+    />
+  {{else}}
+    <div
+      class={{concat "video-thumbnail " @videoAttributes.providerName}}
+      tabindex="0"
+      {{on "click" this.loadEmbed}}
+      {{on "keypress" this.loadEmbed}}
+    >
+      <img
+        class={{concat @videoAttributes.providerName "-thumbnail"}}
+        src={{@videoAttributes.thumbnail}}
+        title={{@videoAttributes.title}}
+        loading="lazy"
+      />
+      <div class={{concat "icon " @videoAttributes.providerName "-icon"}}></div>
+    </div>
+    <div class="title-container">
+      <div class="title-wrapper">
+        <a
+          target="_blank"
+          class="title-link"
+          href={{@videoAttributes.url}}
+          title={{@videoAttributes.title}}
+        >{{@videoAttributes.title}}</a>
+      </div>
+    </div>
+  {{/if}}
+</div>
