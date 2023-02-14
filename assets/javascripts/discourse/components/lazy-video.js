@@ -7,8 +7,10 @@ export default class LazyVideo extends Component {
 
   @action
   loadEmbed() {
-    this.isLoaded = true;
-    this.args.callback?.();
+    if (!this.isLoaded) {
+      this.isLoaded = true;
+      this.args.callback?.();
+    }
   }
 
   @action

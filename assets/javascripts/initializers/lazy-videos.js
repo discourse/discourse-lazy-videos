@@ -5,17 +5,13 @@ import { hbs } from "ember-cli-htmlbars";
 function initLazyEmbed(api) {
   api.decorateCookedElement(
     (cooked, helper) => {
-      const lazyContainers = cooked.querySelectorAll(".lazy-video-container");
-
       if (cooked.classList.contains("d-editor-preview")) {
         return;
       }
 
-      if (lazyContainers.length === 0) {
-        return;
-      }
+      const lazyContainers = cooked.querySelectorAll(".lazy-video-container");
 
-      for (const container of lazyContainers) {
+      lazyContainers.forEach((container) => {
         const callback = () => {
           const postId = cooked.closest("article")?.dataset?.postId;
           if (postId) {
@@ -31,7 +27,7 @@ function initLazyEmbed(api) {
         );
 
         container.replaceWith(lazyVideo);
-      }
+      });
     },
     { onlyStream: true, id: "discourse-lazy-videos" }
   );
