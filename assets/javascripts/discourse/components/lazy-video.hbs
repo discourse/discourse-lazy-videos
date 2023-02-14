@@ -1,6 +1,9 @@
 <div
-  class="{{concat @videoAttributes.providerName '-onebox lazy-video-container'}}
-    {{if this.isLoaded 'video-loaded'}}"
+  class={{concat-class
+    "lazy-video-container"
+    (concat @videoAttributes.providerName "-onebox")
+    (if this.isLoaded "video-loaded")
+  }}
   data-video-id={{@videoAttributes.id}}
   data-video-title={{@videoAttributes.title}}
   data-provider-name={{@videoAttributes.providerName}}
@@ -13,7 +16,7 @@
     />
   {{else}}
     <div
-      class={{concat "video-thumbnail " @videoAttributes.providerName}}
+      class={{concat-class "video-thumbnail" @videoAttributes.providerName}}
       tabindex="0"
       {{on "click" this.loadEmbed}}
       {{on "keypress" this.loadEmbed}}
@@ -24,7 +27,12 @@
         title={{@videoAttributes.title}}
         loading="lazy"
       />
-      <div class={{concat "icon " @videoAttributes.providerName "-icon"}}></div>
+      <div
+        class={{concat-class
+          "icon"
+          (concat @videoAttributes.providerName "-icon")
+        }}
+      ></div>
     </div>
     <div class="title-container">
       <div class="title-wrapper">
