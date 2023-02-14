@@ -1,6 +1,6 @@
 import { sanitize } from "discourse/lib/text";
 
-export default function getLazyAttributes(cooked) {
+export default function getVideoAttributes(cooked) {
   if (!cooked.classList.contains("lazy-video-container")) {
     return {};
   }

@@ -1,5 +1,5 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-import getLazyAttributes from "../lib/data-extractor";
+import getVideoAttributes from "../lib/lazy-video-attributes";
 import { hbs } from "ember-cli-htmlbars";
 
 function initLazyEmbed(api) {
@@ -19,7 +19,7 @@ function initLazyEmbed(api) {
           }
         };
 
-        const videoAttributes = getLazyAttributes(container);
+        const videoAttributes = getVideoAttributes(container);
         const lazyVideo = helper.renderGlimmer(
           "p.lazy-video-wrapper",
           hbs`<LazyVideo @videoAttributes={{@data.param}} @callback={{@data.callback}}/>`,
