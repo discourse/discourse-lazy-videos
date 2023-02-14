@@ -1,16 +1,35 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
+import getVideoAttributes from "../lib/lazy-video-attributes";
+import { hbs } from "ember-cli-htmlbars";
 
 function initLazyEmbed(api) {
-  const lazyVideos = api.container.lookup("service:lazy-videos");
-
   api.decorateCookedElement(
-    (cooked) => {
+    (cooked, helper) => {
       if (cooked.classList.contains("d-editor-preview")) {
         return;
       }
-      lazyVideos.decorateLazyContainers(cooked, api);
+
+      const lazyContainers = cooked.querySelectorAll(".lazy-video-container");
+
+      lazyContainers.forEach((container) => {
+        const callback = () => {
+          const postId = cooked.closest("article")?.dataset?.postId;
+          if (postId) {
+            api.preventCloak(parseInt(postId, 10));
+          }
+        };
+
+        const videoAttributes = getVideoAttributes(container);
+        const lazyVideo = helper.renderGlimmer(
+          "p.lazy-video-wrapper",
+          hbs`<LazyVideo @videoAttributes={{@data.param}} @callback={{@data.callback}}/>`,
+          { param: videoAttributes, callback }
+        );
+
+        container.replaceWith(lazyVideo);
+      });
     },
-    { id: "discourse-lazy-videos" }
+    { onlyStream: true, id: "discourse-lazy-videos" }
   );
 }
 
@@ -18,6 +37,6 @@ export default {
   name: "discourse-lazy-videos",
 
   initialize() {
-    withPluginApi("1.5.0", initLazyEmbed);
+    withPluginApi("1.6.0", initLazyEmbed);
   },
 };
