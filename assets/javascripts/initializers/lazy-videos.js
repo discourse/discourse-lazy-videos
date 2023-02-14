@@ -17,7 +17,7 @@ function initLazyEmbed(api) {
 
       for (const container of lazyContainers) {
         const callback = () => {
-          const postId = cooked.closest("article").dataset.postId;
+          const postId = cooked.closest("article")?.dataset?.postId;
           if (postId) {
             api.preventCloak(parseInt(postId, 10));
           }
