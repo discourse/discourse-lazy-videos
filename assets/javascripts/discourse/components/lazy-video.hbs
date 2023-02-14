@@ -8,6 +8,7 @@
   {{#if this.isLoaded}}
     <LazyIframe
       @providerName={{@videoAttributes.providerName}}
+      @title={{@videoAttributes.title}}
       @videoId={{@videoAttributes.id}}
     />
   {{else}}
@@ -29,6 +30,7 @@
       <div class="title-wrapper">
         <a
           target="_blank"
+          rel="noopener noreferrer"
           class="title-link"
           href={{@videoAttributes.url}}
           title={{@videoAttributes.title}}
