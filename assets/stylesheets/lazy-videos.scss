@@ -133,6 +133,11 @@
   }
 }
 
+// Overrides core onebox height: auto; that can cause a conflict
+.lazy-video-wrapper .lazy-video-container.youtube-onebox {
+  height: 0;
+}
+
 // Temporary styles until we support chat
 
 .chat-message-content .lazy-video-container {
